@@ -357,3 +357,529 @@ storm$EVTYPE = sub( "^c[a-z]+l\\s*(f|/).*$", "coastal flood", storm$EVTYPE)
 	
 storm$EVTYPE = sub( "^coastal e.+$", "coastal flood", storm$EVTYPE)
 
+storm$EVTYPE = sub( "^coastal\\s*storm$", "tropical depression", storm$EVTYPE)
+
+storm = storm[ - grep( "^cool and wet", storm$EVTYPE),]
+	# No storm event, just a cool and wet summer, less than ideal for some
+	#	farmers
+storm = storm[ - grep( "^cool spell", storm$EVTYPE),]
+	# No storm event, just a significantly cooler than average August
+	
+storm$EVTYPE = sub( "^cold and wet", "flood", storm$EVTYPE)
+
+storm$EVTYPE[storm$REFNUM == "220848"] = sub( "^coastal surge", "storm surge/tide", storm$EVTYPE[ storm$REFNUM == "220848"])
+	# Remarks indicate storm surge/tide is appropriate
+
+storm$EVTYPE = sub( "^coastal surge", "coastal flood", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^cold air funnel[s]*", "funnel cloud", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^cold air tornado", "tornado", storm$EVTYPE)
+
+storm = storm[ - grep( "^cold and frost", storm$EVTYPE),]
+	# No storm, unseasonably cool weather, no injuries, fatalities, or damage
+
+storm$EVTYPE = sub( "^cold.*", "cold/wind chill", storm$EVTYPE)
+
+# D
+
+EventTypes[ grep( "^[Dd]", EventTypes)]
+	# Distinct types we want
+	#
+	# [1] "Debris Flow" "Dense Fog"   "Dense Smoke" "Drought"     "Dust Devil" 
+	# [2] "Dust Storm"
+
+sort( unique( storm$EVTYPE[ grep( "^[d]", storm$EVTYPE)]))
+	# Distinct types we have
+	#
+	# [1] "dam break"              "dam failure"            "damaging freeze"       
+	# [4] "deep hail"              "dense fog"              "dense smoke"           
+ 	# [7] "downburst"              "downburst winds"        "driest month"          
+	# [10] "drifting snow"          "drought"                "drought/excessive heat"
+	# [13] "drowning"               "dry"                    "dry conditions"        
+	# [16] "dry hot weather"        "dry microburst"         "dry microburst 50"     
+	# [19] "dry microburst 53"      "dry microburst 58"      "dry microburst 61"     
+	# [22] "dry microburst 84"      "dry microburst winds"   "dry mircoburst winds"  
+	# [25] "dry pattern"            "dry spell"              "dry weather"           
+	# [28] "dryness"                "dust devel"             "dust devil"            
+	# [31] "dust devil waterspout"  "dust storm"             "dust storm/high winds" 
+	# [34] "duststorm"
+	
+storm$EVTYPE = sub( "^dam [bf].*", "flash flood", storm$EVTYPE)	
+	
+storm$EVTYPE = sub( "^dama.*", "frost/freeze", storm$EVTYPE)	
+	
+storm$EVTYPE = sub( "^d.+hail", "hail", storm$EVTYPE)	
+	
+storm$EVTYPE = sub( "^driest.+", "drought", storm$EVTYPE)	
+	
+storm$EVTYPE = sub( "^down.+", "thunderstorm wind", storm$EVTYPE)	
+	
+storm$EVTYPE = sub( "^drought.+", "drought", storm$EVTYPE)	
+	
+storm$EVTYPE = sub( "^drif.+", "winter weather", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^drow.+", "flash flood", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^dry$", "drought", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^dryness$", "drought", storm$EVTYPE)
+	
+storm$EVTYPE = sub( "^dry [chpsw].+", "drought", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^d.+mi.+", "thunderstorm wind", storm$EVTYPE)	
+	
+storm$EVTYPE = sub( "^d.+spout$", "dust devil", storm$EVTYPE)	
+	
+storm$EVTYPE = sub( "^du.+el$", "dust devil", storm$EVTYPE)	
+	
+storm$EVTYPE = sub( "^du.+nds$", "dust storm", storm$EVTYPE)	
+	
+storm$EVTYPE = sub( "^duststorm$", "dust storm", storm$EVTYPE)	
+	
+
+
+# E
+
+EventTypes[ grep( "^[Ee]", EventTypes)]
+	# Distinct types we want
+	#	
+	# [1] "Excessive Heat"          "Extreme Cold/Wind Chill"
+
+sort( unique( storm$EVTYPE[ grep( "^[e]", storm$EVTYPE)]))
+	# Distinct types we have
+	#
+	# [1] "early freeze"                         "early frost"                         
+ 	# [3] "early rain"                           "early snow"                          
+ 	# [5] "early snowfall"                       "erosion/cstl flood"                  
+ 	# [7] "excessive"                            "excessive cold"                      
+ 	# [9] "excessive heat"                       "excessive heat/drought"              
+	# [11] "excessive precipitation"              "excessive rain"                      
+	# [13] "excessive rainfall"                   "excessive snow"                      
+	# [15] "excessive wetness"                    "excessively dry"                     
+	# [17] "extended cold"                        "extreme cold"                        
+	# [19] "extreme cold/wind chill"              "extreme cold/wind chill temperatures"
+	# [21] "extreme heat"                         "extreme wind chill"                  
+	# [23] "extreme wind chill/blowing sno"       "extreme wind chills"                 
+	# [25] "extreme windchill"                    "extreme windchill temperatures"      
+	# [27] "extreme/record cold"                  "extremely wet"	
+	
+	
+storm$EVTYPE = sub( "^ea.+fr.+$", "frost/freeze", storm$EVTYPE)
+
+storm = storm[ - grep( "^early rain", storm$EVTYPE),]
+	# No storm event
+
+storm = storm[ - grep( "^early snow", storm$EVTYPE),]
+	# Light snowfall mid-fall. Remarks contradict fatality reports; damage and
+	# fatalities listed as zero
+
+storm$EVTYPE = sub( "^er.+od$", "coastal flood", storm$EVTYPE)
+	
+storm$EVTYPE = sub( "^excessive$", "drought", storm$EVTYPE)
+	
+storm$EVTYPE = sub( "^exc.+ld$", "drought", storm$EVTYPE)	
+	
+storm$EVTYPE = sub( "^exc.+ht$", "drought", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^exc.+on$", "heavy rain", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^exc.+in.*$", "heavy rain", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^exc.+ow$", "heavy snow", storm$EVTYPE)
+	# too many (25) "excessive snow" entries to check individually
+	
+storm$EVTYPE = sub( "^exc.+ss$", "heavy rain", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^exc.+ry$", "drought", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^exte.+ld$", "cold/wind chill", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^extr.+cold.*$", "extreme cold/wind chill", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^extr.+cold.*$", "extreme cold/wind chill", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^extr.+ wind.*$", "extreme cold/wind chill", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^extr.+heat$", "excessive heat", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^ext.+wet$", "heavy rain", storm$EVTYPE)
+
+sort( unique( storm$EVTYPE[ grep( "^[e]", storm$EVTYPE)]))
+
+
+# F
+
+EventTypes[ grep( "^[Ff]", EventTypes)]
+	# Distinct types we want
+	#	
+	# [1] "Flash Flood"  "Flood"        "Frost/Freeze" "Funnel Cloud" "Freezing Fog"
+
+
+sort( unique( storm$EVTYPE[ grep( "^[f]", storm$EVTYPE)]))
+	# Distinct types we have
+	#	
+	# [1] "falling snow/ice"               "first frost"                   
+	# [3] "first snow"                     "flash flood"                   
+	# [5] "flash flood - heavy rain"       "flash flood from ice jams"     
+	# [7] "flash flood landslides"         "flash flood winds"             
+	# [9] "flash flood/"                   "flash flood/ flood"            
+	# [11] "flash flood/ street"            "flash flood/flood"             
+	# [13] "flash flood/heavy rain"         "flash flood/landslide"         
+	# [15] "flash flooding"                 "flash flooding/flood"          
+	# [17] "flash flooding/thunderstorm wi" "flash floods"                  
+	# [19] "flash floooding"                "flood"                         
+	# [21] "flood & heavy rain"             "flood conditions"              
+	# [23] "flood flash"                    "flood flood/flash"             
+	# [25] "flood watch/"                   "flood/flash"                   
+	# [27] "flood/flash flood"              "flood/flash flooding"          
+	# [29] "flood/flash/flood"              "flood/flashflood"              
+	# [31] "flood/rain/wind"                "flood/rain/winds"              
+	# [33] "flood/river flood"              "flood/strong wind"             
+	# [35] "flooding"                       "flooding/heavy rain"           
+	# [37] "floods"                         "fog"                           
+	# [39] "fog and cold temperatures"      "forest fires"                  
+	# [41] "freeze"                         "freezing drizzle"              
+	# [43] "freezing drizzle and freezing"  "freezing fog"                  
+	# [45] "freezing rain"                  "freezing rain and sleet"       
+	# [47] "freezing rain and snow"         "freezing rain sleet and"       
+	# [49] "freezing rain sleet and light"  "freezing rain/sleet"           
+	# [51] "freezing rain/snow"             "freezing spray"                
+	# [53] "frost"                          "frost/freeze"                  
+	# [55] "frost\\freeze"                  "funnel"                        
+	# [57] "funnel cloud"                   "funnel cloud."                 
+	# [59] "funnel cloud/hail"              "funnel clouds"                 
+	# [61] "funnels"         
+
+
+storm$EVTYPE = sub( "^fall.+ice$", "heavy snow", storm$EVTYPE)
+
+storm = storm[ - grep( "^first frost", storm$EVTYPE),]
+	# No storm event
+
+storm = storm[ - grep( "^first snow", storm$EVTYPE),]
+	# No storm event, all accumulations under six inches
+
+storm$EVTYPE = sub( "^fla.+des$", "debris flow", storm$EVTYPE)
+	# Event best fits in debris flow category
+
+storm$EVTYPE = sub( "^fla.+de$", "flash flood", storm$EVTYPE)
+	# Event best fits flash flood category
+
+storm$EVTYPE = sub( "^f.*lash.*$", "flash flood", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^flo.*$", "flood", storm$EVTYPE)
+
+# Some events listed as fog indicate freezing fog in remarks; others indicate
+#	dense fog
+
+freezingFogIndex = grep( "[Ff]reez", storm$REMARKS)
+
+storm$EVTYPE[ freezingFogIndex] = sub( "^fog$", "freezing fog", storm$EVTYPE[ freezingFogIndex])
+
+storm$EVTYPE = sub( "^fog$", "dense fog", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^fog.+$", "dense fog", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^freezing [drs].+$", "ice storm", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^freeze$", "frost/freeze", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^frost$", "frost/freeze", storm$EVTYPE)
+
+storm$EVTYPE = sub( "frost\\freeze", "frost/freeze", storm$EVTYPE, fixed = T)
+
+storm$EVTYPE = sub( "^for.+$", "wildfire", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^funnel.*$", "funnel cloud", storm$EVTYPE)
+
+
+# G
+
+EventTypes[ grep( "^[Gg]", EventTypes)]
+	# Distinct types we want
+	#	
+	# character(0)
+
+sort( unique( storm$EVTYPE[ grep( "^[g]", storm$EVTYPE)]))
+	# Distinct types we have
+	#	
+	# [1] "glaze"                    "glaze ice"                "glaze/ice storm"         
+ 	# [4] "gradient wind"            "gradient winds"           "grass fires"             
+ 	# [7] "ground blizzard"          "gustnado"                 "gustnado and"            
+	# [10] "gusty lake wind"          "gusty thunderstorm wind"  "gusty thunderstorm winds"
+#	 [13] "gusty wind"               "gusty wind/hail"          "gusty wind/hvy rain"     
+	# [16] "gusty wind/rain"          "gusty winds"
+
+storm$EVTYPE = sub( "^glaze.*$", "ice storm", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^grad.+$", "strong wind", storm$EVTYPE)
+
+storm = storm[ - grep( "^grass fires$", storm$EVTYPE),]
+	# criteria for wildfire not met.
+
+storm$EVTYPE = sub( "^gro.+$", "winter storm", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^gustn.+$", "thunderstorm wind", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^gusty l.+$", "strong wind", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^g.+th.+$", "thunderstorm wind", storm$EVTYPE)
+
+thunderstormWindIndex = grep( "[Tt]hunderstorm", storm$REMARKS)
+
+storm$EVTYPE[ thunderstormWindIndex] = sub( "^gusty wind$", "thunderstorm wind", storm$EVTYPE[ thunderstormWindIndex])
+
+tropicalStormIndex = grep( "[Tt]ropical [Ss]torm", storm$REMARKS)
+
+storm$EVTYPE[ tropicalStormIndex] = sub( "^gusty wind$", "tropical storm", storm$EVTYPE[ tropicalStormIndex])
+
+storm$EVTYPE = sub( "^gusty wind$", "strong wind", storm$EVTYPE)
+
+tropicalStormIndex = grep( "[Tt]ropical [Ss]torm", storm$REMARKS)
+
+storm$EVTYPE[ tropicalStormIndex] = sub( "^gusty winds$", "tropical storm", storm$EVTYPE[ tropicalStormIndex])
+
+storm$EVTYPE[ thunderstormWindIndex] = sub( "^gusty winds$", "thunderstorm wind", storm$EVTYPE[ thunderstormWindIndex])
+
+storm$EVTYPE = sub( "^gusty winds$", "strong wind", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^gusty wind.+[ln]$", "thunderstorm wind", storm$EVTYPE)
+
+
+# H
+
+EventTypes[ grep( "^[Hh]", EventTypes)]
+	# Distinct types we want
+	#	
+	# [1] "Hail"                "Heat"                "Heavy Rain"         
+	# [4] "Heavy Snow"          "High Surf"           "High Wind"          
+	# [7] "Hurricane (Typhoon)"
+	
+sort( unique( storm$EVTYPE[ grep( "^[h]", storm$EVTYPE)]))
+	# Distinct types we have
+	#	
+	# [1] "hail"                           "hail 0.75"                     
+	#  [3] "hail 0.88"                      "hail 075"                      
+  	# [5] "hail 088"                       "hail 1.00"                     
+  	# [7] "hail 1.75"                      "hail 1.75)"                    
+ 	#  [9] "hail 100"                       "hail 125"                      
+	#  [11] "hail 150"                       "hail 175"                      
+	#  [13] "hail 200"                       "hail 225"                      
+	#  [15] "hail 275"                       "hail 450"                      
+	#  [17] "hail 75"                        "hail 80"                       
+	#  [19] "hail 88"                        "hail aloft"                    
+	#  [21] "hail damage"                    "hail flooding"                 
+	#  [23] "hail storm"                     "hail(0.75)"                    
+	#  [25] "hail/icy roads"                 "hail/wind"                     
+	#  [27] "hail/winds"                     "hailstorm"                     
+	#  [29] "hailstorms"                     "hard freeze"                   
+	#  [31] "hazardous surf"                 "heat"                          
+	#  [33] "heat drought"                   "heat wave"                     
+	#  [35] "heat wave drought"              "heat waves"                    
+	#  [37] "heat/drought"                   "heatburst"                     
+	#  [39] "heavy lake snow"                "heavy mix"                     
+	#  [41] "heavy precipatation"            "heavy precipitation"           
+	#  [43] "heavy rain"                     "heavy rain and flood"          
+	#  [45] "heavy rain and wind"            "heavy rain effects"            
+	#  [47] "heavy rain; urban flood winds;" "heavy rain/flooding"           
+	#  [49] "heavy rain/high surf"           "heavy rain/lightning"          
+	#  [51] "heavy rain/mudslides/flood"     "heavy rain/severe weather"     
+	#  [53] "heavy rain/small stream urban"  "heavy rain/snow"               
+	#  [55] "heavy rain/urban flood"         "heavy rain/wind"               
+	#  [57] "heavy rainfall"                 "heavy rains"                   
+	#  [59] "heavy rains/flooding"           "heavy seas"                    
+	#  [61] "heavy shower"                   "heavy showers"                 
+	#  [63] "heavy snow"                     "heavy snow   freezing rain"    
+	#  [65] "heavy snow & ice"               "heavy snow and"                
+	#  [67] "heavy snow and high winds"      "heavy snow and ice"            
+	#  [69] "heavy snow and ice storm"       "heavy snow and strong winds"   
+	#  [71] "heavy snow andblowing snow"     "heavy snow shower"             
+	#  [73] "heavy snow squalls"             "heavy snow-squalls"            
+	#  [75] "heavy snow/blizzard"            "heavy snow/blizzard/avalanche" 
+	#  [77] "heavy snow/blowing snow"        "heavy snow/freezing rain"      
+	#  [79] "heavy snow/high"                "heavy snow/high wind"          
+	#  [81] "heavy snow/high winds"          "heavy snow/high winds & flood" 
+	#  [83] "heavy snow/high winds/freezing" "heavy snow/ice"                
+	#  [85] "heavy snow/ice storm"           "heavy snow/sleet"              
+	#  [87] "heavy snow/squalls"             "heavy snow/wind"               
+	#  [89] "heavy snow/winter storm"        "heavy snowpack"                
+	#  [91] "heavy surf"                     "heavy surf and wind"           
+	#  [93] "heavy surf coastal flooding"    "heavy surf/high surf"          
+	#  [95] "heavy swells"                   "heavy wet snow"                
+	#  [97] "high"                           "high  swells"                  
+	#  [99] "high  winds"                    "high seas"                     
+	# [101] "high surf"                      "high surf advisories"          
+	# [103] "high surf advisory"             "high swells"                   
+	# [105] "high temperature record"        "high tides"                    
+	# [107] "high water"                     "high waves"                    
+	# [109] "high wind"                      "high wind (g40)"               
+	# [111] "high wind 48"                   "high wind 63"                  
+	# [113] "high wind 70"                   "high wind and heavy snow"      
+	# [115] "high wind and high tides"       "high wind and seas"            
+	# [117] "high wind damage"               "high wind/ blizzard"           
+	# [119] "high wind/blizzard"             "high wind/blizzard/freezing ra"
+	# [121] "high wind/heavy snow"           "high wind/low wind chill"      
+	# [123] "high wind/seas"                 "high wind/wind chill"          
+	# [125] "high wind/wind chill/blizzard"  "high winds"                    
+	# [127] "high winds 55"                  "high winds 57"                 
+	# [129] "high winds 58"                  "high winds 63"                 
+	# [131] "high winds 66"                  "high winds 67"                 
+	# [133] "high winds 73"                  "high winds 76"                 
+	# [135] "high winds 80"                  "high winds 82"                 
+	# [137] "high winds and wind chill"      "high winds dust storm"         
+	# [139] "high winds heavy rains"         "high winds/"                   
+	# [141] "high winds/coastal flood"       "high winds/cold"               
+	# [143] "high winds/flooding"            "high winds/heavy rain"         
+	# [145] "high winds/snow"                "highway flooding"              
+	# [147] "hot and dry"                    "hot pattern"                   
+	# [149] "hot spell"                      "hot weather"                   
+	# [151] "hot/dry pattern"                "hurricane"                     
+	# [153] "hurricane edouard"              "hurricane emily"               
+	# [155] "hurricane erin"                 "hurricane felix"               
+	# [157] "hurricane gordon"               "hurricane opal"                
+	# [159] "hurricane opal/high winds"      "hurricane-generated swells"    
+	# [161] "hurricane/typhoon"              "hvy rain"                      
+	# [163] "hyperthermia/exposure"          "hypothermia"                   
+	# [165] "hypothermia/exposure"
+
+
+storm$EVTYPE = sub( "^hail.+$", "hail", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^ha.+ze$", "frost/freeze", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^ha.+rf$", "high surf", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^h.+wave.+ght$", "heat", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^h.+drought$", "drought", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^heatburst$", "high wind", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^heatburst$", "high wind", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^h.+lake.+ow$", "lake-effect snow", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^h.+wave[s]?$", "heat", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^h.+mix$", "winter storm", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^heavy precipitation$", "heavy rain", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^heavy precipatation$", "flash flood", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^heavy rain.+$", "heavy rain", storm$EVTYPE)
+
+storm = storm[ - grep( "^heavy seas$", storm$EVTYPE),]
+	# 2 incidents, neither appears to meet criteria of a storm event
+
+storm$EVTYPE = sub( "^heavy shower[s]?$", "heavy rain", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^heavy s.+n$", "winter storm", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^heavy s.+ice.*$", "winter storm", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^heavy s.+and$", "winter storm", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^heavy sn.+wind.*$", "winter storm", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^heavy sn.+blowing.*$", "winter storm", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^heavy sn.+che$", "heavy snow", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^heavy sn.+wer$", "heavy snow", storm$EVTYPE)
+
+lakeEffectIndex = grep( "[Ll]ake", storm$REMARKS)
+
+storm$EVTYPE[ lakeEffectIndex] = sub( "^heavy s.+squalls$", "lake-effect snow", storm$EVTYPE[ lakeEffectIndex])
+
+storm$EVTYPE = sub( "^heavy s.+squalls$", "heavy snow", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^heavy s.+ard$", "winter storm", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^heavy sn.+[/].+$", "winter storm", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^heavy snow.+$", "heavy snow", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^heavy surf$", "high surf", storm$EVTYPE)
+
+storm = storm[ - grep( "^heavy surf and wind$", storm$EVTYPE),]
+	# Unfortunate incident, does not appear to be storm event
+
+storm$EVTYPE = sub( "^heavy.+ing$", "coastal flood", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^heavy.+surf$", "high surf", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^heavy.+lls$", "high surf", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^heavy .+snow$", "heavy snow", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^high$", "high winds", storm$EVTYPE)
+
+storm = storm[ - grep( "^high  swells$", storm$EVTYPE),]
+	# does not appear to be storm event
+
+storm = storm[ - grep( "^high seas$", storm$EVTYPE),]
+	# do not appear to be storm events, winds not mentioned
+
+storm$EVTYPE = sub( "^high surf.+$", "high surf", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^high.+lls$", "high surf", storm$EVTYPE)
+
+storm = storm[ - grep( "^high temperature record$", storm$EVTYPE),]
+	# do not appear to be storm events, no damage, injuries, fatalities
+
+storm$EVTYPE = sub( "^high tides$", "high surf", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^high wind[s]?.+[0-9][0-9].*$", "high wind", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^high.+snow$", "winter storm", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^high water$", "flood", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^high  winds$", "high wind", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^high wind.+tides$", "high wind", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^high wind .+$", "high wind", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^high wind.+blizzard.*$", "winter storm", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^high wind.+chill$", "high wind", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^high wind/seas$", "marine strong wind", storm$EVTYPE)
+	
+storm$EVTYPE = sub( "^high winds.?$", "high wind", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^high.+dust.+$", "dust storm", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^high.+rains$", "tropical storm", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^high.+rain$", "high wind", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^high.+ood$", "coastal flood", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^high.+cold$", "winter weather", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^high w.+ing$", "high wind", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^highway flooding$", "flood", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^hot.+dry$", "drought", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^hot.+$", "heat", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^hurr.+$", "hurricane (typhoon)", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^hvy.+$", "heavy rain", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^hyp.+$", "cold/wind chill", storm$EVTYPE)
+
+
+# I
+
+
+
+
+
+
