@@ -1,0 +1,24 @@
+Astronomical Low Tide ,Z ,Hurricane (Typhoon)  ,Z 
+Avalanche ,Z ,Ice Storm ,Z 
+Blizzard ,Z ,Lake-Effect Snow ,Z 
+Coastal Flood ,Z ,Lakeshore Flood ,Z 
+Cold/Wind Chill ,Z ,Lightning ,C 
+Debris Flow  ,C ,Marine Hail  ,M 
+Dense Fog ,Z ,Marine High Wind ,M 
+Dense Smoke ,Z ,Marine Strong Wind ,M 
+Drought ,Z ,Marine Thunderstorm Wind ,M  
+Dust Devil ,C ,Rip Current ,Z 
+Dust Storm ,Z ,Seiche  ,Z 
+Excessive Heat ,Z ,Sleet  ,Z 
+Extreme Cold/Wind Chill ,Z ,Storm Surge/Tide ,Z 
+Flash Flood ,C,Strong Wind  ,Z 
+Flood ,C ,Thunderstorm Wind ,C 
+Frost/Freeze  ,Z ,Tornado ,C 
+Funnel Cloud ,C ,Tropical Depression ,Z 
+Freezing Fog ,Z ,Tropical Storm ,Z 
+Hail ,C ,Tsunami ,Z 
+Heat  ,Z ,Volcanic Ash ,Z 
+Heavy Rain ,C ,Waterspout ,M 
+Heavy Snow  ,Z ,Wildfire ,Z 
+High Surf ,Z ,Winter Storm ,Z 
+High Wind ,Z ,Winter Weather ,Z 
