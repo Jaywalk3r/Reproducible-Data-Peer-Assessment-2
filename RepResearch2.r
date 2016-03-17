@@ -922,4 +922,63 @@ storm$EVTYPE = sub( "^ice.+[ds]$", "winter storm", storm$EVTYPE)
 
 # J
 
+EventTypes[ grep( "^[Jj]", EventTypes)]
+# Distinct types we want
+	#	
+	# character(0)
+
+sort( unique( storm$EVTYPE[ grep( "^[j]", storm$EVTYPE)]))
+	# Distinct types we have
+	#	
+	# character(0)
+	
+
+
+# K
+
+EventTypes[ grep( "^[Kk]", EventTypes)]
+# Distinct types we want
+	#	
+	# character(0)
+	
+sort( unique( storm$EVTYPE[ grep( "^[k]", storm$EVTYPE)]))
+	# Distinct types we have
+	#	
+	# character(0)
+
+
+
+
+# L
+
+EventTypes[ grep( "^[Ll]", EventTypes)]
+# Distinct types we want
+	#	
+	# [1] "Lake-Effect Snow" "Lakeshore Flood"  "Lightning"
+
+sort( unique( storm$EVTYPE[ grep( "^[l]", storm$EVTYPE)]))
+	# Distinct types we have
+	#	
+	# [1] "lack of snow"                   "lake effect snow"              
+ 	# [3] "lake flood"                     "lake-effect snow"              
+ 	# [5] "lakeshore flood"                "landslide"                     
+ 	# [7] "landslide/urban flood"          "landslides"                    
+ 	# [9] "landslump"                      "landspout"                     
+	# [11] "large wall cloud"               "late freeze"                   
+	# [13] "late season hail"               "late season snow"              
+	# [15] "late season snowfall"           "late snow"                     
+	# [17] "late-season snowfall"           "light freezing rain"           
+	# [19] "light snow"                     "light snow and sleet"          
+	# [21] "light snow/flurries"            "light snow/freezing precip"    
+	# [23] "light snowfall"                 "lighting"                      
+	# [25] "lightning"                      "lightning  wauseon"            
+	# [27] "lightning and heavy rain"       "lightning and thunderstorm win"
+	# [29] "lightning and winds"            "lightning damage"              
+	# [31] "lightning fire"                 "lightning injury"              
+	# [33] "lightning thunderstorm winds"   "lightning thunderstorm windss" 
+	# [35] "lightning."                     "lightning/heavy rain"          
+	# [37] "ligntning"                      "local flash flood"             
+	# [39] "local flood"                    "locally heavy rain"            
+	# [41] "low temperature"                "low temperature record"        
+	# [43] "low wind chill"
 
