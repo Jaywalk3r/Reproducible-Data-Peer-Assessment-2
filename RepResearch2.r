@@ -878,8 +878,48 @@ storm$EVTYPE = sub( "^hyp.+$", "cold/wind chill", storm$EVTYPE)
 
 # I
 
+EventTypes[ grep( "^[Ii]", EventTypes)]
+# Distinct types we want
+	#	
+	# [1] "Ice Storm"
+
+sort( unique( storm$EVTYPE[ grep( "^[i]", storm$EVTYPE)]))
+	# Distinct types we have
+	#	
+	# [1] "ice"                   "ice and snow"          "ice floes"            
+ 	# [4] "ice fog"               "ice jam"               "ice jam flood (minor" 
+ 	# [7] "ice jam flooding"      "ice on road"           "ice pellets"          
+	# [10] "ice roads"             "ice storm"             "ice storm and snow"   
+	# [13] "ice storm/flash flood" "ice/snow"              "ice/strong winds"     
+	# [16] "icestorm/blizzard"     "icy roads"
+
+storm$EVTYPE = sub( "^ice$", "ice storm", storm$EVTYPE)
+	# Too many (61) to check individually, "freezing rain" common in REMARKS
+
+storm$EVTYPE = sub( "^ice.+ow$", "winter storm", storm$EVTYPE)
+
+boatIndex = grep( "[Bb]oat[s]?", storm$REMARKS)
+
+storm$EVTYPE[ boatIndex] = sub( "^ice floes$", "marine strong wind", storm$EVTYPE[ boatIndex])
+	# seems to be category of best match
+
+storm$EVTYPE = sub( "^ice floes$", "winter storm", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^ice fog$", "freezing fog", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^ice jam.*$", "flood", storm$EVTYPE)
+	# Closest category
+
+storm$EVTYPE = sub( "^ic[ey].+road[s]?$", "winter weather", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^ice pellets$", "sleet", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^ice.+flood$", "ice storm", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^ice.+[ds]$", "winter storm", storm$EVTYPE)
 
 
 
+# J
 
 
