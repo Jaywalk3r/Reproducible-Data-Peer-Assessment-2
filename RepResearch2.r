@@ -982,3 +982,159 @@ sort( unique( storm$EVTYPE[ grep( "^[l]", storm$EVTYPE)]))
 	# [41] "low temperature"                "low temperature record"        
 	# [43] "low wind chill"
 
+storm$EVTYPE = sub( "^lack.+$", "drought", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^lake f.+$", "lakeshore flood", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^lake effect snow$", "lake-effect snow", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^landsl.+$", "debris flow", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^landsp.+$", "dust devil", storm$EVTYPE)
+
+storm = storm[ - grep( "^large wall cloud$", storm$EVTYPE),]
+	# No description of event or reported damage or injuries
+
+storm$EVTYPE = sub( "^late f.+$", "frost/freeze", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^late.+hail$", "hail", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^late.+season snow.*$", "heavy snow", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^late snow$", "winter storm", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^light freezing rain$", "ice storm", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^light snow.+[pt]$", "winter weather", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^light snow.+$", "ice storm", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^lighting$", "lightning", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^lightning.+on$", "lightning", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^lightning a.+rain$", "heavy rain", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^lightning.+rain$", "lightning", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^lightning.+win$", "lightning", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^lightning.+winds[s]?$", "lightning", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^lightning.+[ey]$", "lightning", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^ligntning$", "lightning", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^lightning[.]$", "lightning", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^light snow$", "winter weather", storm$EVTYPE)
+	# too many to verify individually
+
+storm$EVTYPE = sub( "^local f.+flood$", "flash flood", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^local flood$", "flood", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^locally.+rain$", "flood", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^low.+[el]$", "cold/wind chill", storm$EVTYPE)
+
+storm = storm[ - grep( "^low.+ord$", storm$EVTYPE),]
+	# No storm event
+	
+
+
+# M
+
+EventTypes[ grep( "^[Mm]", EventTypes)]
+# Distinct types we want
+	#	
+	# [1] "Marine Hail"              "Marine High Wind"         "Marine Strong Wind"      
+	# [4] "Marine Thunderstorm Wind"
+
+sort( unique( storm$EVTYPE[ grep( "^[m]", storm$EVTYPE)]))
+	# Distinct types we have
+	#	
+	# [1] "major flood"               "marine accident"           "marine hail"              
+ 	# [4] "marine high wind"          "marine mishap"             "marine strong wind"       
+ 	# [7] "marine thunderstorm wind"  "marine tstm wind"          "metro storm, may 26"      
+	# [10] "microburst"                "microburst winds"          "mild and dry pattern"     
+	# [13] "mild pattern"              "mild/dry pattern"          "minor flood"              
+	# [16] "minor flooding"            "mixed precip"              "mixed precipitation"      
+	# [19] "moderate snow"             "moderate snowfall"         "monthly precipitation"    
+	# [22] "monthly rainfall"          "monthly snowfall"          "monthly temperature"      
+	# [25] "mountain snows"            "mud slide"                 "mud slides"               
+	# [28] "mud slides urban flooding" "mud/rock slide"            "mudslide"                 
+	# [31] "mudslide/landslide"        "mudslides"
+
+storm$EVTYPE = sub( "^major flood$", "flood", storm$EVTYPE)
+
+storm = storm[ - grep( "^marine accident$", storm$EVTYPE),]
+	# not enough information to classify as storm event
+
+storm$EVTYPE = sub( "^marine mishap$", "marine strong wind", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^ma.+tstm.+nd$", "marine thunderstorm wind", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^metro storm, may 26$", "thunderstorm wind", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^microburst.*$", "thunderstorm wind", storm$EVTYPE)
+
+storm = storm[ - grep( "^mild.+pattern$", storm$EVTYPE),]
+	# unusually nice weather doesn't fit any of the storm event definitions.
+
+storm$EVTYPE = sub( "^min.+flood.*$", "flood", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^mixed precip.*$", "winter storm", storm$EVTYPE)
+
+# 100+ "^moderate snow.*$" events, some winter weather, some winter storms
+winterStormIndex = unique( c( grep( "[Ff]reezing", storm$REMARKS), grep( "[Ss]leet", storm$REMARKS)))
+
+storm$EVTYPE[ winterStormIndex] = sub( "^moderate snow.*$", "winter storm", storm$EVTYPE[ winterStormIndex])
+
+storm$EVTYPE = sub( "^moderate snow.*$", "winter weather", storm$EVTYPE)
+
+# 36 "monthly precipitation" entries are a mix of too much and too little rain.
+dryIndex = unique( c( grep( "[Oo]nly", storm$REMARKS), grep( "[Dd]riest", storm$REMARKS)))
+
+storm$EVTYPE[ dryIndex] = sub( "^month.+tion$", "drought", storm$EVTYPE[ dryIndex])
+
+storm$EVTYPE = sub( "^month.+tion$", "heavy rain", storm$EVTYPE)
+
+# We need to slightly modify the dryIndex to include a few more observations
+dryIndex = unique( c( dryIndex, grep( "[Ll]ess than", storm$REMARKS), grep( "or less", storm$REMARKS)))
+
+storm$EVTYPE[ dryIndex] = sub( "^month.+nfall$", "drought", storm$EVTYPE[ dryIndex])
+
+storm$EVTYPE = sub( "^month.+nfall$", "heavy rain", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^month.+fall$", "heavy snow", storm$EVTYPE)
+	# Heavy snow accumulation (2.5 - 5+ feet) best fits heavy snow event def.
+	
+storm = storm[ - grep( "^mon.+ture$", storm$EVTYPE),]
+	# Colder than normal average temps, no storm event
+
+storm$EVTYPE = sub( "^mountain snows$", "winter weather", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^mud.+flood.*$", "flood", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^mud.+$", "debris flow", storm$EVTYPE)
+
+
+
+
+# N 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
