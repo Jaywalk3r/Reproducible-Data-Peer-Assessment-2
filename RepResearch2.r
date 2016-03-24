@@ -1124,17 +1124,161 @@ storm$EVTYPE = sub( "^mud.+$", "debris flow", storm$EVTYPE)
 
 # N 
 
+EventTypes[ grep( "^[Nn]", EventTypes)]
+# Distinct types we want
+	#	
+	# character(0)
+
+sort( unique( storm$EVTYPE[ grep( "^[n]", storm$EVTYPE)]))
+	# Distinct types we have
+	#	
+	# [1] "near record snow"       "no severe weather"      "non severe hail"       
+	# [4] "non tstm wind"          "non-severe wind damage" "non-tstm wind"         
+	# [7] "none"                   "normal precipitation"   "northern lights" 
+
+storm = storm[ - grep( "^near.+$", storm$EVTYPE),]
+	# No storm event, commentary on near record snawfall over course of winter
+
+storm = storm[ - grep( "^no s.+$", storm$EVTYPE),]
+	# A report of no storm events to report
+
+storm$EVTYPE = sub( "^non s.+$", "hail", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^non.+wind.*$", "strong wind", storm$EVTYPE)
+
+storm = storm[ - grep( "^none$", storm$EVTYPE),]
+	# A report of no storm events to report
+
+storm = storm[ - grep( "^normal precipitation$", storm$EVTYPE),]
+	# A report of no storm events to report
+
+storm = storm[ - grep( "^northern lights$", storm$EVTYPE),]
+	# UFO reports? All Federation ships accounted for.
 
 
 
 
+# O
+
+EventTypes[ grep( "^[Oo]", EventTypes)]
+# Distinct types we want
+	#	
+	# character(0)
+
+sort( unique( storm$EVTYPE[ grep( "^[o]", storm$EVTYPE)]))
+	# Distinct types we have
+	#	
+	# [1] "other"
+
+dim( storm[ storm$EVTYPE == "other",])
+	# [1] 52 37
+
+dustDevilIndex = grep( "[Dd]ust.*[Dd]ev", storm$REMARKS)
+
+storm$EVTYPE[ dustDevilIndex] = sub( "^other$", "dust devil", storm$EVTYPE[ dustDevilIndex])
+
+DTERindex = grep( "^Due to excess rainfall", storm$REMARKS)
+
+storm$EVTYPE[ DTERindex] = sub( "^other$", "heavy rain", storm$EVTYPE[ DTERindex])
+
+avalancheIndex = grep( "[Aa]valanche", storm$REMARKS)
+
+storm$EVTYPE[ avalancheIndex] = sub( "^other$", "avalanche", storm$EVTYPE[ avalancheIndex])
+
+lightSnowIndex = grep( "[Ll]ight.*[Ss]now", storm$REMARKS)
+
+storm$EVTYPE[ lightSnowIndex] = sub( "^other$", "winter weather", storm$EVTYPE[ lightSnowIndex])
+
+thunderstormWindIndex = grep( "[Ww]ind.*[Tt]hunderstorm", storm$REMARKS)
+
+storm$EVTYPE[ thunderstormWindIndex] = sub( "^other$", "thunderstorm wind", storm$EVTYPE[ thunderstormWindIndex])
+
+storm = storm[ storm$REFNUM != 378658,]
+	# No storm event (record length of time between days with freezing
+	#	temperatures)
+
+lightningIndex = grep( "lightning-caused", storm$REMARKS)
+
+storm$EVTYPE[ lightningIndex] = sub( "^other$", "lightning", storm$EVTYPE[ lightningIndex])
+
+blizzardIndex = grep( "blizzard", storm$REMARKS)
+
+storm$EVTYPE[ blizzardIndex] = sub( "^other$", "blizzard", storm$EVTYPE[ blizzardIndex])
+
+wavesIndex = grep( "waves", storm$REMARKS)
+
+storm$EVTYPE[ wavesIndex] = sub( "^other$", "high surf", storm$EVTYPE[ wavesIndex])
+
+storm$EVTYPE = sub( "^other$", "strong wind", storm$EVTYPE)
 
 
 
 
+# P
+
+EventTypes[ grep( "^[Pp]", EventTypes)]
+# Distinct types we want
+	#	
+	# character(0)
+
+sort( unique( storm$EVTYPE[ grep( "^[p]", storm$EVTYPE)]))
+	# Distinct types we have
+	#	
+	# [1] "patchy dense fog"  "patchy ice"        "prolong cold"      "prolong cold/snow"
+	# [5] "prolong warmth"    "prolonged rain" 
+	
+storm$EVTYPE = sub( "^p.+fog$", "dense fog", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^p.+ice$", "winter weather", storm$EVTYPE)
+
+storm = storm[ - grep( "^prolong [cw].+$", storm$EVTYPE),]
+	# No storm event
+
+storm$EVTYPE = sub( "^p.+rain$", "heavy rain", storm$EVTYPE)
 
 
 
 
+# Q
 
+EventTypes[ grep( "^[Qq]", EventTypes)]
+# Distinct types we want
+	#	
+	# character(0)
+
+sort( unique( storm$EVTYPE[ grep( "^[q]", storm$EVTYPE)]))
+	# Distinct types we have
+	#	
+	# character(0)
+
+
+
+# R
+
+EventTypes[ grep( "^[Rr]", EventTypes)]
+# Distinct types we want
+	#	
+	# [1] "Rip Current"
+
+sort( unique( storm$EVTYPE[ grep( "^[r]", storm$EVTYPE)]))
+	# Distinct types we have
+	#	
+	#  [1] "rain"                      "rain (heavy)"              "rain and wind"            
+ 	#  [4] "rain damage"               "rain/snow"                 "rain/wind"                
+ 	#  [7] "rainstorm"                 "rapidly rising water"      "record  cold"             
+	#  [10] "record cold"               "record cold and high wind" "record cold/frost"        
+	#  [13] "record cool"               "record dry month"          "record dryness"           
+	#  [16] "record heat"               "record heat wave"          "record high"              
+	#  [19] "record high temperature"   "record high temperatures"  "record low"               
+	#  [22] "record low rainfall"       "record may snow"           "record precipitation"     
+	#  [25] "record rainfall"           "record snow"               "record snow/cold"         
+	#  [28] "record snowfall"           "record temperature"        "record temperatures"      
+	#  [31] "record warm"               "record warm temps."        "record warmth"            
+	#  [34] "record winter snow"        "record/excessive heat"     "record/excessive rainfall"
+	#  [37] "red flag criteria"         "red flag fire wx"          "remnants of floyd"        
+	#  [40] "rip current"               "rip currents"              "rip currents heavy surf"  
+	#  [43] "rip currents/heavy surf"   "river and stream flood"    "river flood"              
+	#  [46] "river flooding"            "rock slide"                "rogue wave"               
+	#  [49] "rotating wall cloud"       "rough seas"                "rough surf"               
+	#  [52] "rural flood" 
 
