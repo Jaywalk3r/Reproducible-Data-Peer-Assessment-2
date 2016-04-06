@@ -1282,3 +1282,56 @@ sort( unique( storm$EVTYPE[ grep( "^[r]", storm$EVTYPE)]))
 	#  [49] "rotating wall cloud"       "rough seas"                "rough surf"               
 	#  [52] "rural flood" 
 
+
+landslideIndex = grep( "[Ll]andslide", storm$REMARKS)
+
+storm$EVTYPE[ landslideIndex] = sub( "^rain$", "debris flow", storm$EVTYPE[ landslideIndex])
+
+freezingRainIndex = grep( "[Ff]reezing rain", storm$REMARKS)
+
+storm$EVTYPE[ freezingRainIndex] = sub( "^rain$", "winter storm", storm$EVTYPE[ freezingRainIndex])
+
+
+snowIndex = unique( c( grep( "Snow", storm$REMARKS), grep( "heavy snow", storm$REMARKS)))
+
+storm$EVTYPE[ snowIndex] = sub( "^rain$", "heavy snow", storm$EVTYPE[ snowIndex])
+
+lightningIndex = grep( "lightning", storm$REMARKS)
+
+storm$EVTYPE[ lightningIndex] = sub( "^rain$", "lightning", storm$EVTYPE[ lightningIndex])
+
+dryIndex = grep( "dr[yi][e]?[s]?[t]?", storm$REMARKS)
+
+storm$EVTYPE[ dryIndex] = sub( "^rain$", "REMOVE", storm$EVTYPE[ dryIndex])
+
+storm = storm[ - grep( "^REMOVE$", storm$EVTYPE),]
+	# No storm event, drought ended
+
+storm$EVTYPE = sub( "^rain$", "heavy rain", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^rain [(]heavy[)]$", "heavy rain", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^rain.+wind$", "strong wind", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^rain.+age$", "heavy rain", storm$EVTYPE)
+
+exposureIndex = grep( "exposure death", storm$REMARKS)
+
+storm$EVTYPE[ exposureIndex] = sub( "^rain.snow$", "cold/wind chill", storm$EVTYPE[ exposureIndex])
+
+storm$EVTYPE = sub( "^rain.snow$", "heavy rain", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^rain.+m$", "debris flow", storm$EVTYPE)
+
+storm$EVTYPE = sub( "^rap.+ter$", "flood", storm$EVTYPE)
+
+
+
+
+
+
+
+
+
+
+
